@@ -38,7 +38,7 @@ RUN set -x \
         cmake3 \
         curl \
         git \
-        gosu \
+        # gosu \
         libargon2-0-dev \
         libclang-common-3.6-dev \
         libcurl-no-gcrypt-dev \
@@ -66,6 +66,13 @@ RUN set -x \
         zlib1g-dev \
     && apt-get autoremove --purge \
     && rm -rf /var/lib/apt/lists/*
+
+# ubuntu:14:04 has no gosu
+RUN set -x \
+    && git clone https://github.com/ncopa/su-exec.git \
+    && (cd su-exec; make) \
+    && mv su-exec/su-exec /usr/bin/su-exec \
+    && rm -rf su-exec
 
 RUN set -x && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
