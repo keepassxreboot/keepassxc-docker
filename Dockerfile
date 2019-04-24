@@ -37,6 +37,7 @@ RUN set -x \
         clang-format-3.6 \
         cmake3 \
         curl \
+        fuse \
         git \
         # gosu \
         libargon2-0-dev \
