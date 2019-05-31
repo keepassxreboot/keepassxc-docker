@@ -105,4 +105,4 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 VOLUME ["/keepassxc/src", "/keepassxc/out"]
 WORKDIR /keepassxc
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["bash"]
+CMD ["bashx"]

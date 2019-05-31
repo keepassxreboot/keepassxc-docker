@@ -2,11 +2,10 @@
 
 set -e
 
-chown -R keepassxc /keepassxc
-
-if [ "$1" = "bash" ]; then
-    # exec gosu keepassxc "$@"
-    exec su-exec keepassxc "$@"
+if [ "$1" = "bashx" ]; then
+    chown -R keepassxc /keepassxc
+    shift
+    exec su-exec keepassxc bash "$@"
 fi
 
 exec "$@"
