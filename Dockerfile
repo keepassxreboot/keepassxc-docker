@@ -17,13 +17,10 @@
 FROM ubuntu:16.04
 
 ENV REBUILD_COUNTER=1
-ENV QT5_VERSION=qt512
-ENV QT5_PPA_VERSION=qt-5.12.3
 
 RUN set -x \
     && apt-get update -y \
     && apt-get -y install --no-install-recommends software-properties-common \
-    && add-apt-repository ppa:beineri/opt-${QT5_PPA_VERSION}-xenial \
     && add-apt-repository ppa:phoerious/keepassxc \
     && apt-get update -y \
     && apt-get upgrade -y \
@@ -39,6 +36,8 @@ RUN set -x \
         libclang-common-4.0-dev \
         libgcrypt20-18-dev \
         libqrencode-dev \
+        libqt5svg5-dev \
+        libqt5x11extras5 \
         libquazip5-dev \
         libsodium-dev \
         libxi-dev \
@@ -48,12 +47,10 @@ RUN set -x \
         llvm-4.0 \
         locales \
         mesa-common-dev \
-        ${QT5_VERSION}base \
-        ${QT5_VERSION}imageformats \
-        ${QT5_VERSION}svg \
-        ${QT5_VERSION}tools \
-        ${QT5_VERSION}translations \
-        ${QT5_VERSION}x11extras \
+        qt5-image-formats-plugins \
+        qtbase5-dev \
+        qtbase5-dev-tools \
+        qttranslations5-l10n \
         xclip \
         xvfb \
         zlib1g-dev \
@@ -70,16 +67,12 @@ RUN set -x && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-ENV PATH="/opt/${QT5_VERSION}/bin:${PATH}"
-ENV CMAKE_PREFIX_PATH="/opt/${QT5_VERSION}/lib/cmake"
 ENV CMAKE_INCLUDE_PATH="/opt/keepassxc-libs/include"
 ENV CMAKE_LIBRARY_PATH="/opt/keepassxc-libs/lib/x86_64-linux-gnu"
 ENV CPATH="${CMAKE_INCLUDE_PATH}"
-ENV LD_LIBRARY_PATH="${CMAKE_LIBRARY_PATH}:/opt/${QT5_VERSION}/lib"
 
 RUN set -x \
     && echo "/opt/keepassxc-libs/lib/x86_64-linux-gnu" > /etc/ld.so.conf.d/01-keepassxc.conf \
-    && echo "/opt/${QT5_VERSION}/lib" > /etc/ld.so.conf.d/02-${QT5_VERSION}.conf \
     && ldconfig
 
 RUN set -x \
