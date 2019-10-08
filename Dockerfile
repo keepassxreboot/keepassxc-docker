@@ -37,7 +37,7 @@ RUN set -x \
         libgcrypt20-18-dev \
         libqrencode-dev \
         libqt5svg5-dev \
-        libqt5x11extras5 \
+        libqt5x11extras5-dev \
         libquazip5-dev \
         libsodium-dev \
         libxi-dev \
@@ -50,6 +50,8 @@ RUN set -x \
         qt5-image-formats-plugins \
         qtbase5-dev \
         qtbase5-dev-tools \
+        qttools5-dev \
+        qttools5-dev-tools \
         qttranslations5-l10n \
         xclip \
         xvfb \
