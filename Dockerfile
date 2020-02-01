@@ -27,9 +27,9 @@ RUN set -x \
     && apt-get install --no-install-recommends -y \
         build-essential \
         clang-4.0 \
-        clang-format-4.0 \
         cmake \
         curl \
+        dbus \
         fuse \
         git \
         libargon2-0-dev \
