@@ -20,7 +20,10 @@ ENV REBUILD_COUNTER=2
 
 RUN set -x \
     && apt-get update -y \
-    && apt-get -y install --no-install-recommends software-properties-common \
+    && apt-get -y install --no-install-recommends \
+        software-properties-common \
+        ca-certificates \↲
+        software-properties-common \
     && add-apt-repository ppa:phoerious/keepassxc \
     && apt-get update -y \
     && apt-get upgrade -y \
