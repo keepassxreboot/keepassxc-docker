@@ -66,7 +66,7 @@ RUN set -x \
 # Install clang-format-10 to support proper code formatting checks
 RUN set -x \
     && curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-810 main" \
+    && apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-10 main" \
     && apt-get update -y \
     && apt-get install --no-install-recommends -y \
         clang-format-10 \
