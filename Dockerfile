@@ -63,16 +63,16 @@ RUN set -x \
     && apt-get autoremove --purge \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
     
-# Install clang-format-8 to support proper code formatting checks    
+# Install clang-format-10 to support proper code formatting checks
 RUN set -x \
     && curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main" \
+    && apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-810 main" \
     && apt-get update -y \
     && apt-get install --no-install-recommends -y \
-        clang-format-8 \
+        clang-format-10 \
     && apt-get autoremove --purge \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && ln -s /usr/bin/clang-format-8 /usr/bin/clang-format
+    && ln -s /usr/bin/clang-format-10 /usr/bin/clang-format
 
 RUN set -x \
     && git clone https://github.com/ncopa/su-exec.git \
