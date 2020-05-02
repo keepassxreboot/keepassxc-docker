@@ -53,6 +53,7 @@ RUN set -x \
         qt5-image-formats-plugins \
         qtbase5-dev \
         qtbase5-dev-tools \
+        qtbase5-private-dev \
         qttools5-dev \
         qttools5-dev-tools \
         qttranslations5-l10n \
