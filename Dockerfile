@@ -50,6 +50,7 @@ RUN set -x \
         llvm-4.0 \
         locales \
         mesa-common-dev \
+        metacity \
         qt5-image-formats-plugins \
         qtbase5-dev \
         qtbase5-dev-tools \
