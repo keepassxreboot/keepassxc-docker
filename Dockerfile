@@ -62,6 +62,7 @@ RUN set -x \
         xvfb \
         zlib1g-dev \
         openssh-client \
+        asciidoctor \
     && apt-get autoremove --purge \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
     
