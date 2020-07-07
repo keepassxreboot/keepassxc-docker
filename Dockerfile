@@ -28,6 +28,7 @@ RUN set -x \
     && apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y \
+        asciidoctor \
         build-essential \
         clang-4.0 \
         cmake \
