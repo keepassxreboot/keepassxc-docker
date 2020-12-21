@@ -105,8 +105,8 @@ RUN set -x \
     && chmod +x /usr/bin/appimagetool
 
 RUN set -x \
-    && groupadd -g 2000 keepassxc \
-    && useradd -u 2000 -g keepassxc -d /keepassxc -s /bin/bash keepassxc
+    && groupadd -g 1000 keepassxc \
+    && useradd -u 1000 -g keepassxc -d /keepassxc -s /bin/bash keepassxc
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
