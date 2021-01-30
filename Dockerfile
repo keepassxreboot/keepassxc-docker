@@ -16,7 +16,7 @@
 
 FROM ubuntu:16.04
 
-ENV REBUILD_COUNTER=2
+ENV REBUILD_COUNTER=3
 
 RUN set -x \
     && apt-get update -y \
