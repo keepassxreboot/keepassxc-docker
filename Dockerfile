@@ -14,11 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ENV REBUILD_COUNTER=3
-ENV QT5_VERSION=qt515
-ENV QT5_PPA_VERSION=qt-5.15.2
+ARG QT5_MINOR
+ARG QT5_MICRO
+
+ENV REBUILD_COUNTER=0
+ENV QT5_VERSION=qt5${QT5_MINOR}
+ENV QT5_PPA_VERSION=qt-5.${QT5_MINOR}.${QT5_MICRO}
+ENV BOTAN_VERSION=2.17.3
 
 RUN set -x \
     && apt-get update -y \
@@ -26,14 +30,14 @@ RUN set -x \
         apt-transport-https \
         ca-certificates \
         software-properties-common \
-    && add-apt-repository ppa:beineri/opt-${QT5_PPA_VERSION}-xenial \
-    && add-apt-repository ppa:phoerious/keepassxc \
+    && add-apt-repository ppa:beineri/opt-${QT5_PPA_VERSION}-bionic \
     && apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y \
         asciidoctor \
         build-essential \
-        clang-4.0 \
+        clang-10 \
+        clang-format-10 \
         cmake \
         curl \
         dbus \
@@ -43,7 +47,7 @@ RUN set -x \
         libargon2-0-dev \
         libclang-common-4.0-dev \
         libgl1-mesa-dev \
-        libgcrypt20-18-dev \
+        libgcrypt-dev \
         libqrencode-dev \
         libquazip5-dev \
         libsodium-dev \
@@ -51,7 +55,6 @@ RUN set -x \
         libxtst-dev \
         libyubikey-dev \
         libykpers-1-dev \
-        llvm-4.0 \
         locales \
         metacity \
         ${QT5_VERSION}base \
@@ -68,17 +71,6 @@ RUN set -x \
     && apt-get autoremove --purge \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/
     
-# Install clang-format-10 to support proper code formatting checks    
-RUN set -x \
-    && curl https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-10 main" \
-    && apt-get update -y \
-    && apt-get install --no-install-recommends -y \
-        clang-format-10 \
-    && apt-get autoremove --purge \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ \
-    && ln -s /usr/bin/clang-format-10 /usr/bin/clang-format
-
 RUN set -x \
     && git clone https://github.com/ncopa/su-exec.git \
     && (cd su-exec; make) \
@@ -107,7 +99,20 @@ RUN set -x \
     && curl -fL "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" > /usr/bin/appimagetool \
     && chmod +x /usr/bin/linuxdeploy \
     && chmod +x /usr/bin/linuxdeploy-plugin-qt \
-    && chmod +x /usr/bin/appimagetool
+    && chmod +x /usr/bin/appimagetool \
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    && ln -s /usr/bin/clang-format-10 /usr/bin/clang-format
+
+RUN set -x \
+    && mkdir -p /opt/botan \
+    && cd /opt/botan \
+    && curl -O https://botan.randombit.net/releases/Botan-${BOTAN_VERSION}.tar.xz \
+    && tar -xf Botan-${BOTAN_VERSION}.tar.xz \
+    && cd Botan-${BOTAN_VERSION} \
+    && ./configure.py --prefix /opt/keepassxc-libs --libdir /opt/keepassxc-libs/lib/x86_64-linux-gnu \
+    && make -j8 \
+    && make install \
+    && rm -rf /opt/botan
 
 RUN set -x \
     && groupadd -g 1000 keepassxc \
