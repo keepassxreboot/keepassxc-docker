@@ -29,6 +29,7 @@ RUN set -x \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y \
         asciidoctor \
+        botan-kpxc \
         build-essential \
         clang-4.0 \
         cmake \
