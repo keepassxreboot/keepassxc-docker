@@ -31,6 +31,7 @@ RUN set -x \
         ca-certificates \
         software-properties-common \
     && add-apt-repository ppa:beineri/opt-${QT5_PPA_VERSION}-bionic \
+    && add-apt-repository ppa:phoerious/keepassxc \
     && apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y \
@@ -45,6 +46,7 @@ RUN set -x \
         fuse \
         git \
         libargon2-0-dev \
+        libbotan-kpxc-2-dev \
         libclang-common-4.0-dev \
         libgl1-mesa-dev \
         libgcrypt-dev \
@@ -100,19 +102,7 @@ RUN set -x \
     && chmod +x /usr/bin/linuxdeploy \
     && chmod +x /usr/bin/linuxdeploy-plugin-qt \
     && chmod +x /usr/bin/appimagetool \
-    && ln -s /usr/bin/python3 /usr/bin/python \
     && ln -s /usr/bin/clang-format-10 /usr/bin/clang-format
-
-RUN set -x \
-    && mkdir -p /opt/botan \
-    && cd /opt/botan \
-    && curl -O https://botan.randombit.net/releases/Botan-${BOTAN_VERSION}.tar.xz \
-    && tar -xf Botan-${BOTAN_VERSION}.tar.xz \
-    && cd Botan-${BOTAN_VERSION} \
-    && ./configure.py --prefix /opt/keepassxc-libs --libdir /opt/keepassxc-libs/lib/x86_64-linux-gnu \
-    && make -j8 \
-    && make install \
-    && rm -rf /opt/botan
 
 RUN set -x \
     && groupadd -g 1000 keepassxc \
