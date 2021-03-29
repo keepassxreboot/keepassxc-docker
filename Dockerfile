@@ -41,6 +41,7 @@ RUN set -x \
         libclang-common-4.0-dev \
         libgcrypt20-18-dev \
         libqrencode-dev \
+        libomp-dev \
         libqt5svg5-dev \
         libqt5x11extras5-dev \
         libquazip5-dev \
