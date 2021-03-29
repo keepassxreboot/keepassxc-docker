@@ -29,7 +29,7 @@ RUN set -x \
     && apt-get upgrade -y \
     && apt-get install --no-install-recommends -y \
         asciidoctor \
-        botan-kpxc \
+        libbotan-kpxc-2-dev \
         build-essential \
         clang-4.0 \
         cmake \
